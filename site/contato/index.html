@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contato — VCN Produções</title>
+    <link rel="stylesheet" href="/site/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a href="/site/" class="logo"><img src="/landing/assets/LOGO-VCN-PERFIL.jpg" alt="VCN Produções"></a>
+        <nav class="nav">
+          <a href="/site/">Início</a>
+          <a href="/site/portfolio/">Portfólio</a>
+          <a href="/site/servicos/">Serviços</a>
+          <a href="/site/quem-somos/">Quem Somos</a>
+          <a href="/site/contato/" aria-current="page">Contato</a>
+          <a class="header-cta" href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20iniciar%20um%20projeto" target="_blank" rel="noopener">COMECE SEU PROJETO</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="container">
+          <h1 class="headline" style="font-size:2rem">Fale com um Especialista</h1>
+          <div class="card" style="max-width:680px;margin:18px auto">
+            <form id="contact-form" class="form" novalidate>
+              <div class="form-row"><label for="nome">Nome</label><input type="text" id="nome" name="nome" required placeholder="Seu nome"></div>
+              <div class="form-row"><label for="email">E-mail</label><input type="email" id="email" name="email" required placeholder="seu@email.com"></div>
+              <div class="form-row"><label for="telefone">WhatsApp</label><input type="tel" id="telefone" name="telefone" required placeholder="(DDD) 99999-9999"></div>
+              <div class="form-row"><label for="detalhes">Detalhes do Projeto</label><textarea id="detalhes" name="detalhes" rows="4" placeholder="Briefing resumido"></textarea></div>
+              <button type="submit" class="cta-primary">Enviar</button>
+              <div class="form-feedback" id="contact-feedback" aria-live="polite" style="margin-top:10px;font-weight:600"></div>
+            </form>
+          </div>
+          <p style="text-align:center"><a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20iniciar%20um%20projeto" class="cta-danger" target="_blank" rel="noopener">FALAR VIA WHATSAPP</a></p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="container"><small>© VCN Produções</small></div></footer>
+    <script src="/site/script.js"></script>
+    <script>
+      const form = document.getElementById('contact-form');
+      const feedback = document.getElementById('contact-feedback');
+      function validateEmail(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+      function validateTelefone(t){return /\d{8,}/.test((t||'').replace(/\D/g,''))}
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        if (!data.nome || !data.email || !data.telefone) { feedback.textContent = 'Preencha nome, e-mail e telefone.'; feedback.className = 'form-feedback error'; return; }
+        if (!validateEmail(data.email)) { feedback.textContent = 'E-mail inválido.'; feedback.className = 'form-feedback error'; return; }
+        if (!validateTelefone(data.telefone)) { feedback.textContent = 'Telefone inválido.'; feedback.className = 'form-feedback error'; return; }
+        try { const lead = { ...data, createdAt: new Date().toISOString() }; const existing = JSON.parse(localStorage.getItem('vcn_leads')||'[]'); existing.push(lead); localStorage.setItem('vcn_leads', JSON.stringify(existing)); feedback.textContent = 'Recebido! Vamos retornar em até 1h útil.'; feedback.className = 'form-feedback success'; form.reset(); }
+        catch { feedback.textContent = 'Erro ao enviar. Tente novamente.'; feedback.className = 'form-feedback error'; }
+      });
+    </script>
+  </body>
+</html>

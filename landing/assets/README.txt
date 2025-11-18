@@ -1,0 +1,1 @@
+Este diretório armazena os arquivos de mídia da landing page (vídeos/imagens).

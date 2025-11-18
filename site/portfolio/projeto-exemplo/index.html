@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projeto Exemplo — VCN Produções</title>
+    <meta name="description" content="Detalhe do projeto com galeria de mídia e contexto estratégico.">
+    <meta property="og:title" content="Projeto Exemplo — VCN Produções">
+    <meta property="og:description" content="Galeria completa, ficha técnica e resultado.">
+    <meta property="og:image" content="/landing/assets/LOGO-VCN-PERFIL.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-black text-white">
+    <header class="fixed top-0 inset-x-0 z-40 bg-black/80 backdrop-blur border-b border-gray-800">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/site/" class="flex items-center gap-2"><img src="/landing/assets/LOGO-VCN-PERFIL.jpg" alt="VCN" class="h-8"><span class="font-bold">VCN Produções</span></a>
+        <nav class="hidden md:flex items-center gap-4 text-white">
+          <a href="/site/portfolio/" class="font-semibold">Portfólio</a>
+          <a href="/site/servicos/" class="font-semibold">Serviços</a>
+          <a href="/site/contato/" class="inline-flex items-center rounded-lg bg-gradient-to-r from-red-600 to-red-500 text-white font-bold px-4 py-2 shadow">COMECE SEU PROJETO</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="pt-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <nav class="text-sm text-gray-400 mb-4">
+          <a href="/site/" class="hover:underline">Home</a> ·
+          <a href="/site/portfolio/" class="hover:underline">Portfólio</a> ·
+          <span>Projeto Exemplo</span>
+        </nav>
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-4">Lançamento da Linha X — Cliente Y</h1>
+
+        <section class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2 space-y-4">
+            <div class="aspect-video bg-neutral-900 rounded-xl overflow-hidden border border-gray-800">
+              <video id="featuredVideo" data-src="/landing/assets/C2669 (1).mp4" controls preload="none" poster="/landing/assets/LOGO-VCN-PERFIL.jpg" class="w-full h-full"></video>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <img data-src="/landing/assets/LOGO-VCN-PERFIL.jpg" alt="Thumb 1" loading="lazy" class="rounded-lg border border-gray-800 cursor-pointer lightbox-thumb">
+              <img data-src="/landing/assets/LOGO-VCN-PERFIL.jpg" alt="Thumb 2" loading="lazy" class="rounded-lg border border-gray-800 cursor-pointer lightbox-thumb">
+              <img data-src="/landing/assets/LOGO-VCN-PERFIL.jpg" alt="Thumb 3" loading="lazy" class="rounded-lg border border-gray-800 cursor-pointer lightbox-thumb">
+            </div>
+          </div>
+          <aside class="space-y-4 text-gray-200">
+            <h2 class="text-xl font-bold">Contexto e Solução Entregue</h2>
+            <div class="space-y-2 text-sm">
+              <p><strong>Desafio:</strong> Baixo engajamento nas redes e baixa clareza de proposta de valor.</p>
+              <p><strong>Nossa Solução:</strong> Roteiro com storytelling, captação com estética de produto premium e edição focada em conversão.</p>
+              <p><strong>Serviços:</strong> Roteiro, Captação, Edição, Suporte, Pós-Venda.</p>
+              <p><strong>Resultado:</strong> +30% em leads no período, 5k visualizações orgânicas.</p>
+            </div>
+            <a href="/site/contato/" class="inline-flex items-center rounded-lg bg-gradient-to-r from-red-600 to-red-500 text-white font-bold px-4 py-2 shadow w-full justify-center">QUERO UM PROJETO COMO ESTE</a>
+          </aside>
+        </section>
+
+        <section class="mt-8">
+          <h3 class="text-lg font-bold mb-3">Veja Outros Projetos</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <a href="/site/portfolio/projeto-exemplo/" class="aspect-square bg-neutral-900 rounded-lg border border-gray-800 grid place-items-center text-white">▶</a>
+            <a href="/site/portfolio/projeto-exemplo/" class="aspect-square bg-neutral-900 rounded-lg border border-gray-800 grid place-items-center text-white">▶</a>
+            <a href="/site/portfolio/projeto-exemplo/" class="aspect-square bg-neutral-900 rounded-lg border border-gray-800 grid place-items-center text-white">▶</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div id="lightbox" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+      <button id="lightboxClose" class="absolute top-4 right-4 w-10 h-10 grid place-items-center rounded-full bg-white/20 text-white">✕</button>
+      <img id="lightboxImg" src="" alt="" class="max-w-[92vw] max-h-[86vh] rounded-xl border border-white/30">
+    </div>
+
+    <script>
+      // Lazy load for images/videos
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const el = e.target;
+            const src = el.getAttribute('data-src');
+            if (src) { el.src = src; }
+            if (el.tagName === 'VIDEO') el.load();
+            io.unobserve(el);
+          }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('img[loading="lazy"], video[data-src]').forEach(el => io.observe(el));
+
+      // Lightbox
+      const box = document.getElementById('lightbox');
+      const boxImg = document.getElementById('lightboxImg');
+      const boxClose = document.getElementById('lightboxClose');
+      document.querySelectorAll('.lightbox-thumb').forEach(img => {
+        img.addEventListener('click', () => {
+          boxImg.src = img.getAttribute('data-src') || img.src;
+          box.classList.remove('hidden');
+          box.classList.add('flex');
+        });
+      });
+      boxClose.addEventListener('click', () => { box.classList.add('hidden'); box.classList.remove('flex'); });
+      box.addEventListener('click', (e) => { if (e.target === box) { box.classList.add('hidden'); box.classList.remove('flex'); } });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { box.classList.add('hidden'); box.classList.remove('flex'); } });
+    </script>
+  </body>
+</html>
